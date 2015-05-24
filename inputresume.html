@@ -84,7 +84,7 @@
 									<tr>
 										<td>Judul</td>
 										<td>:</td>
-										<td><select id="judul"><option>-</option></select></td>	
+										<td><select id="judul" onchange="fill()"><option>-</option></select></td>	
 									</tr>
 									
 									<tr>
@@ -148,7 +148,7 @@
                                         <input class="pull-right" type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" />
                                     </div>
 
-                                    <div id="editor" class="lead" placeholder="Go ahead&hellip;" style="max-width:775px"></div></td>	
+                                    <div id="editor" class="lead" style="max-width:775px"></div></td>	
 									</tr>								
 									
 								</table>
@@ -270,6 +270,12 @@
                     var id_seminar=$('#judul').val();
                     $.getJSON("server/updateseminar.php",{id_seminar:id_seminar,resume:resume});
                 });
+                function fill () {
+                    $.getJSON("server/listseminar.php",function (data) {
+                        $('#editor').html('x');
+                        $('#editor').html(data[0].resume);
+                    })
+                }
             </script>
 </body>
 </html>

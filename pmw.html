@@ -133,19 +133,22 @@
                       <td>Pengalaman Wirausaha</td>
                   </tr>
                   <tr>
-                      <table border=2>
-                         <tr><td>No</td>
+                      <table border=2 style="margin-bottom:10px" id="pengalaman">
+                         <tr><td style="width:30px">No</td>
                             <td>Kegiatan </td>
-                            <td>Tempat/ Waktu</td>
+                            <td>Tempat</td>
+                            <td>Waktu</td>
                             <td>Keterangan</td>
                         </tr>
-
-                        <tr><td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
+                        <tr class="kolom">
+                            <td><input type="text" id="no" style="width:30px" value="1" disabled></td>
+                            <td><input type="text" id="kegiatan"></td>
+                            <td><input type="text" id="tempat"></td>
+                            <td><input type="date" id="waktu"></td>
+                            <td><input type="text" id="keterangan"></td>
                         </tr>
                     </table>
+                    <button class="btn btn-primary" id="tambah">Tambah</button>
                 </td>	
             </tr>
         </table>
@@ -217,9 +220,26 @@ $(document).ready(function() {
        var angkatan=$('#angkatan').val();
        var wkt=$('input[name=wkt]').val();
        alert("hai");
-       $.getJSON("server/inputPMW.php",{judulpmw:judul,nim:nim,nama:nama,tempatlahir:tl,tanggal_lahir:tgll,alamat:alamat,akt_pelatihan:angkatan,wkt_pelatihan:wkt,id_jurusan:jurusan});
+       $.getJSON("server/inputPMW.php",{judulpmw:judul,nim:nim,nama:nama,tempatlahir:tl,tanggal_lahir:tgll,alamat:alamat,akt_pelatihan:angkatan,wkt_pelatihan:wkt,id_jurusan:jurusan}).always(function(){
+            $('.kolom').each(function () {
+            var no= $(this).find("#no").val();
+            var kegiatan= $(this).find("#kegiatan").val();
+            var tempat= $(this).find("#tempat").val();
+            var waktu= $(this).find("#waktu").val();
+            var keterangan= $(this).find("#keterangan").val();
+            $.getJSON("server/inputpengalaman.php",{kegiatan:kegiatan,tempat:tempat,waktu:waktu,keterangan:keterangan,id_pmw:id_pmw});
+         });   
+       });
        alert("hai");
+       
    });
+   $('#tambah').click(function(){
+      var no=parseInt($('#pengalaman tr:last #no').val())+1;
+      $('#pengalaman tr:last').clone(true).insertAfter('#pengalaman tr:last');
+      $('#pengalaman tr:last *').val('');
+      $('#pengalaman tr:last #no').val(no);
+      return false;
+   })
 });
 
 </script>

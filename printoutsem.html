@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Print-Peserta Seminar</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- <link href="css/main.css" rel="stylesheet"> -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style type="text/css">
+    .margin{
+        margin: 0 100px;
+    }
+    .padding{
+        padding: 20px 0px;
+    }
+    .center{
+        text-align: center;
+    }
+    table{
+        margin-bottom: 20px;
+    }
+    </style>
+</head><!--/head-->
+<body class="margin">  
+    <h3 class="center padding">Daftar Peserta Seminar</h3>
+    <table>
+        <tr>
+            <td>Judul seminar</td>
+            <td>: Seminar</td>
+        </tr>
+        <tr>
+            <td>Pemateri</td>
+            <td>: Budi Raharjo</td>
+        </tr>
+        <tr>
+            <td>Tanggal seminar</td>
+            <td>: 10 Agustus 2000</td>
+        </tr>
+        <tr>
+            <td>Jumlah peserta</td>
+            <td>: Seminar</td>
+        </tr>
+    </table>
+    <table border="1" style="width:100%">
+        <tr>
+            <th style="width:30px">No</th>
+            <th>Nama</th>
+            <th>Instansi</th>
+        </tr>
+        <tr>
+            <td style="width:30px">1</td>
+            <td>Budi</td>
+            <td>Unand</td>
+        </tr>
+        <tr>
+            <td style="width:30px">2</td>
+            <td>Rahmi</td>
+            <td>Unpad</td>
+        </tr>
+        <tr>
+            <td style="width:30px">3</td>
+            <td>Joy</td>
+            <td>UIN</td>
+        </tr>
+    </table>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.getJSON("server/listseminar.php",function(data){
+                $.each(data,tampilkan);
+            })
+        })
+        function tampilkan(index,data){
+            $("#judul").append("<option value="+data.id_seminar+">"+data.judulseminar+"</option>");
+        }
+        $()
+    </script>
+</body>
+</html>

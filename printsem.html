@@ -71,24 +71,22 @@
     </section><!--/#title-->    
 
     <section id="terms" class="container">
-			 <h3>Daftar Nama Peserta Kuliah Umum Kewirausahaan</h3>
-                        <ul>
-                            <li><h4>Denis Putra</h4></a></li>
-                            <li><h4>Sujarwo Sutejo</h4></a></li>
-                            <li><h4>Novia Putri Sari</h4></a></li>
-                            <li><h4>Angga Syaputra</h4></a></li>
-                            <li><h4>Riana Denata</h4></a></li>
-                            <li><h4>Mario Maurer</h4></a></li>
-							<li><h4>Putri Sari</h4></a></li>
-                            <li><h4>Rizki Chaniago</h4></a></li>
-                            <li><h4>Mini Mouse</h4></a></li>
-                        </ul>
-                   <a class="btn btn-danger" href="#">Print</a>
-		</section>
+        <form class="center" role="form" id="login" action="printoutsem.php" method="get">
+            <fieldset class="registration-form">
+                <div class="top-margin form-group">
+                    <label>Seminar <span class="text-danger"></span></label><br>
+                    <select id="id_seminar" name="id_seminar"></select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" id="btn">Cetak</button>
+                </div>
+            </fieldset>
+        </form>
+    </section>
 	   
                 
 
-  <footer id="footer" class="midnight-blue">
+  <footer id="footer" class="midnight-blue" style="position:fixed;bottom:0px;width:100%">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -111,5 +109,15 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.getJSON("server/listseminar.php",function(data){
+                $.each(data,tampilkan);
+            })
+        })
+        function tampilkan(index,data){
+            $("#id_seminar").append("<option value="+data.id_seminar+">"+data.judulseminar+"</option>");
+        }
+    </script>
 </body>
 </html>
