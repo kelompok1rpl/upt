@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Terms of Use | Flat Theme</title>
+    <title>Seleksi PMW</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -71,27 +71,22 @@
     </section><!--/#title-->    
 
     <section id="terms" class="container">
-			 <h2>Daftar Nama Peserta Program Mahasiswa Wirausaha</h2>
-                    <div>
-                        <ul>
-                            <li><a href="seleksi2.html"><h4>Aditya Nugroho</h4></a></li>
-                            <li><a href="#"><h4>Denis Putra</h4></a></li>
-                            <li><a href="#"><h4>Sujarwo Sutejo</h4></a></li>
-                            <li><a href="#"><h4>Novia Putri Sari</h4></a></li>
-                            <li><a href="#"><h4>Fahri Rizki</h4></a></li>
-                            <li><a href="#"><h4>Angga Syaputra</h4></a></li>
-                            <li><a href="#"><h4>Riana Denata</h4></a></li>
-                            <li><a href="#"><h4>Budi Santoso</h4></a></li>
-                            <li><a href="#"><h4>Mario Maurer</h4></a></li>
-							<li><a href="#"><h4>Putri Sari</h4></a></li>
-                            <li><a href="#"><h4>Rizki Chaniago</h4></a></li>
-                            <li><a href="#"><h4>Dadang Syaputra</h4></a></li>
-                            <li><a href="#"><h4>Hermawan</h4></a></li>
-                            <li><a href="#"><h4>Beta Simanjuntak</h4></a></li>
-                            <li><a href="#"><h4>Mini Mouse</h4></a></li>
-                        </ul>
-                    </div>
-		</section>
+		<h2>Daftar Nama Peserta yang Belum Diseleksi</h2>
+        <div>
+            <ul id="list">
+            </ul>
+        </div>
+        <h2>Daftar Nama Peserta Lulus</h2>
+        <div>
+            <ul id="lulus">
+            </ul>
+        </div>
+        <h2>Daftar Nama Peserta Tidak Lulus PMW</h2>
+        <div>
+            <ul id="tolak">
+            </ul>
+        </div>
+	</section>
 	   
                 
 
@@ -118,5 +113,27 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+    $.getJSON("server/listpmw.php",function (data) {
+        if(!data)
+        {
+            $('#list').append('<h4>Tidak ada data</h4>');
+        }else{
+            $.each(data,function () {
+                $('#list').append('<li><a href="seleksi2.php?nim='+this.nim+'"><h4>'+this.nama+'</h4></a></li>');
+            })
+        }
+    })
+    $.getJSON("server/lulus.php",function (data) {
+        $.each(data,function () {
+            $('#lulus').append('<li><a href="seleksi2.php?nim='+this.nim+'"><h4>'+this.nama+'</h4></a></li>');
+        })
+    })
+    $.getJSON("server/tolak.php",function (data) {
+        $.each(data,function () {
+            $('#tolak').append('<li><a href="seleksi2.php?nim='+this.nim+'"><h4>'+this.nama+'</h4></a></li>');
+        })
+    })
+    </script>
 </body>
 </html>

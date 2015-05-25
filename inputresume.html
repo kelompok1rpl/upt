@@ -72,19 +72,19 @@
             </div>
         </div>
     </section><!--/#title-->     
-<form class="left" role="form">
+<form class="left" role="form" enctype="multipart/form-data" method="post">
             <fieldset class="registration-form">
                
 									<table class="table">									
 									<tr>
 										<td>Gambar</td>
 										<td>:</td>
-										<td ><button type="submit" class="btn btn-deafult">Choose File</button></td>
+										<td ><input type="file"></td>
 									</tr>	
 									<tr>
 										<td>Judul</td>
 										<td>:</td>
-										<td><select id="judul" onchange="fill()"><option>-</option></select></td>	
+										<td><select id="judul" onchange="fill()"><option value="-">-</option></select></td>	
 									</tr>
 									
 									<tr>
@@ -271,10 +271,16 @@
                     $.getJSON("server/updateseminar.php",{id_seminar:id_seminar,resume:resume});
                 });
                 function fill () {
-                    $.getJSON("server/listseminar.php",function (data) {
-                        $('#editor').html('x');
-                        $('#editor').html(data[0].resume);
-                    })
+                    var id=$('#judul').val();
+                    if(id!="-")
+                    {
+                        $.getJSON("server/seleksilist.php",{id_seminar:id},function (data) {
+                            $('#editor').html('');
+                            $('#editor').html(data[0].resume);
+                        });
+                    }else{
+                        $('#editor').html('');
+                    }
                 }
             </script>
 </body>

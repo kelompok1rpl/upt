@@ -106,9 +106,9 @@
                 function tampilkan(index,list)
                 {
                     if(index<mod){
-                        $('#sec1').append('<blockquote><table style="font-size:17px"><tr><td colspan="2">'+list.hari+', '+list.tanggal+'</td></tr><tr><td>Judul Seminar</td><td>: '+list.judulseminar+'</td></tr><tr><td>Pemateri</td><td>: '+list.pemateri+'</td></tr></table><a class="btn btn-xs btn-warning" href="seminar.html">Daftar</a></blockquote>');
+                        $('#sec1').append('<blockquote><table style="font-size:17px"><tr><td colspan="2">'+list.hari+', '+list.tanggal+'</td></tr><tr><td>Judul Seminar</td><td>: '+list.judulseminar+'</td></tr><tr><td>Pemateri</td><td>: '+list.pemateri+'</td></tr></table><a class="btn btn-xs btn-warning" href="seminar.html?id_seminar='+list.id_seminar+'">Daftar</a></blockquote>');
                     }else{
-                        $('#sec2').append('<blockquote><table style="font-size:17px"><tr><td colspan="2">'+list.hari+', '+list.tanggal+'</td></tr><tr><td>Judul Seminar</td><td>: '+list.judulseminar+'</td></tr><tr><td>Pemateri</td><td>: '+list.pemateri+'</td></tr></table><a class="btn btn-xs btn-warning" href="seminar.html">Daftar</a></blockquote>');
+                        $('#sec2').append('<blockquote><table style="font-size:17px"><tr><td colspan="2">'+list.hari+', '+list.tanggal+'</td></tr><tr><td>Judul Seminar</td><td>: '+list.judulseminar+'</td></tr><tr><td>Pemateri</td><td>: '+list.pemateri+'</td></tr></table><a class="btn btn-xs btn-warning" href="seminar.html?id_seminar='+list.id_seminar+'">Daftar</a></blockquote>');
                     } 
                 }
             })

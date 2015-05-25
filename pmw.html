@@ -221,13 +221,16 @@ $(document).ready(function() {
        var wkt=$('input[name=wkt]').val();
        alert("hai");
        $.getJSON("server/inputPMW.php",{judulpmw:judul,nim:nim,nama:nama,tempatlahir:tl,tanggal_lahir:tgll,alamat:alamat,akt_pelatihan:angkatan,wkt_pelatihan:wkt,id_jurusan:jurusan}).always(function(){
-            $('.kolom').each(function () {
+          $('.kolom').each(function () {
             var no= $(this).find("#no").val();
             var kegiatan= $(this).find("#kegiatan").val();
             var tempat= $(this).find("#tempat").val();
             var waktu= $(this).find("#waktu").val();
             var keterangan= $(this).find("#keterangan").val();
-            $.getJSON("server/inputpengalaman.php",{kegiatan:kegiatan,tempat:tempat,waktu:waktu,keterangan:keterangan,id_pmw:id_pmw});
+            $.getJSON("server/inputpengalaman.php",{nim:nim,kegiatan:kegiatan,tempat:tempat,waktu:waktu,keterangan:keterangan});
+            alert(no);
+         }).done(function () {
+           alert("semua data sudah berhasil diinputkan");
          });   
        });
        alert("hai");
