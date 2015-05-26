@@ -71,10 +71,19 @@
     </section><!--/#title-->    
 
     <section id="terms" class="container">
-			 <h3>Daftar Nama Peserta yang Lulus Program Mahasiswa Wirausaha</h3>
-                <div id="lulus"></div>        
-                <a class="btn btn-danger" href="#">Print</a>
-		</section>
+		 <h3>Daftar Nama Peserta yang Lulus Program Mahasiswa Wirausaha</h3>
+            <?php 
+                mysql_connect("localhost","root","");
+                mysql_select_db("upt");
+                $result=mysql_query("select * from pengajuan_pmw where status='2'");
+                $no=1;
+                while($data = mysql_fetch_object($result)){
+                    echo "<h4>".$no.". ".$data->nama."</h4></a>";
+                    $no++;
+                }
+            ?>
+         <a class="btn btn-danger" href="#">Print</a>
+	</section>
 	   
                 
 
@@ -101,14 +110,5 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
-    <script type="text/javascript">
-    $.getJSON("server/lulus.php",function (data){
-        var no=1;
-        $.each(data,function(){
-            $('#lulus').append('<h4>'+no+". "+this.nama+'</h4>');
-            no++;
-        })
-    })
-    </script>
 </body>
 </html>

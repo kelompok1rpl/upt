@@ -121,6 +121,7 @@
                         {
                             echo $fakultas=$fkt->namafakultas;
                         }
+                        $status=$data->status;
                       ?></td>
                   </tr>
                   <tr>
@@ -170,11 +171,19 @@
                         }
                         echo "</table>";
                 }else{
-                    echo "<center><h4>tidak ada pengalaman</h4><center>";
+                    echo "<center><h4>tidak ada pengalaman</h4></center>";
+                }
+                if($status==0)
+                {
+                    echo '<center>
+                          <form action="server/seleksi.php" method="POST">
+                          <input type="text" value='.$nim.' hidden name="nim">
+                          <button type="submit" name="status" value="2" class="btn btn-success" id="lulus">Lulus</button>
+                          <button type="submit" name="status" value="1" class="btn btn-danger" id="tidaklulus">Tidak Lulus</button>
+                          </form>
+                          </center>';
                 }
             ?>
-                <a class="btn btn-success" id="lulus">Lulus</a>
-                <a class="btn btn-danger" id="tidaklulus">Tidak Lulus</a>    
             </aside>        
         </div><!--/.row-->
     </section><!--/#blog-->
@@ -204,9 +213,16 @@
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
-    $('#lulus').click(function (argument) {
-        $.getJSON("server/seleksi.php",{},function())
-    });
+    // $('#lulus').click(function () {
+    //     $.getJSON("server/seleksi.php",{status:2},function (data){
+    //         alert("success");
+    //     })
+    // });
+    // $('#tidaklulus').click(function () {
+    //     $.getJSON("server/seleksi.php",{status:1},function (data){
+    //         alert("success");  
+    //     })
+    // });
     </script>
 </body>
 </html>
