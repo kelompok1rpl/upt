@@ -30,7 +30,11 @@
         js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=144716315690681";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-
+    <?php 
+        mysql_connect("localhost","root","");
+        mysql_select_db("upt");
+        $result=mysql_query("select * from pengajuan_pmw");
+    ?>
     <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
         <div class="container">
             <div class="navbar-header">
