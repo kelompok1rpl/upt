@@ -184,6 +184,7 @@
                 $.getJSON("server/login.php",{username:username,password:password},function(data){
                     if(data==true)
                     {
+                        $.getJSON("server/setauth.php",{username:username});
                         window.location="index2.html";
                     }
                     else

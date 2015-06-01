@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Print</title>
+    <title>Input-Time Schedule</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -20,6 +20,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $.getJSON("server/auth.php",function (data) {
+            console.log(data);
+            if(data==false)
+            {
+                window.location="login.html"
+            }
+        })
+    </script>
 </head><!--/head-->
 <body>
        <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
@@ -51,7 +61,7 @@
                         </ul>
                     </li>
 					<li><a href="seleksi.html">Seleksi PMW</a></li>
-                    <li><a href="index.html">Log Out</a></li>
+                    <li><a href="index.html" id="log">Log Out</a></li>
                     
                 </ul>
             </div>
@@ -73,7 +83,7 @@
     <section id="terms" class="container">
         <h3>Daftar Nama Peserta yang Lulus Program Mahasiswa Wirausaha</h3>
         <div id="lulus"></div>        
-        <button class="btn btn-danger" href="printoutpmw.php">Print</button>
+        <button class="btn btn-danger" href="printoutpmw.php" id="print">Print</button>
 	</section>
 	   
                 
@@ -102,13 +112,21 @@
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
-    $.getJSON("server/lulus.php",function (data){
-        var no=1;
-        $.each(data,function(){
-            $('#lulus').append('<h4>'+no+". "+this.nama+'</h4>');
-            no++;
+    $(document).ready(function(){
+        $.getJSON("server/lulus.php",function (data){
+            var no=1;
+            $.each(data,function(){
+                $('#lulus').append('<h4>'+no+". "+this.nama+'</h4>');
+                no++;
+            })
         })
-    })
+        $('#log').click(function(){
+                $.getJSON("server/unsetauth.php");
+            });
+        $('#print').click(function(){
+            window.location="printoutpmw.php";
+        })
+    });
     </script>
 </body>
 </html>

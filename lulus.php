@@ -1,3 +1,14 @@
+<?php 
+function tampilkan(){
+    mysql_connect("localhost","root","");
+    mysql_select_db("upt");
+    $result=mysql_query("select * from pengajuan_pmw");
+    while($data = mysql_fetch_object($result)){
+      $list[]=$data;
+    };
+    return $list;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,119 +95,42 @@
     </section><!--/#title-->     
 
     <section id="blog" class="container">
-        <div class="row">
+        <?php 
+        $hasil=tampilkan();
+        $bar=each($hasil);
+        while($data = mysql_fetch_object($result)){
+        echo '<div class="row">
             <aside class="col-sm-4 col-sm-push-8">
-                <div class="widget search">
-                    <form role="form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" autocomplete="off" placeholder="Search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="button"><i class="icon-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                </div><!--/.search-->
-
             </aside>        
-            <div class="col-sm-8 col-sm-pull-4">
-                <div class="blog">
-                    <div class="blog-item">
-                        <div class="row">
-                            <?php 
-                            while($data = mysql_fetch_object($result)){
-                            ?>
+              <div class="col-sm-8 col-sm-pull-4">
+                  <div class="blog">
+                      <div class="blog-item">
+                          <div class="row">
                             <aside class="col-sm-8 col-sm-push-2">
                                 <div class="center">
-                                    <h2><?php echo $data->judulpmw; ?></h2>
+                                    <h2>'.$data->judulpmw.'</h2>
                                 </div>
                                 <br>
                                 <table class="table">           
                                   <tr>
                                       <td>Nama</td>
                                       <td>:</td>
-                                      <td ><?php echo $data->nama;?></td>
+                                      <td >'.$data->nama.'</td>
                                   </tr> 
                                   <tr>
                                       <td>NIM</td>
                                       <td>:</td>
-                                      <td><?php echo $data->nim;?></td>   
-                                  </tr>
-                                  <tr>
-                                      <td>Tempat Lahir</td>
-                                      <td>:</td>
-                                      <td><?php echo $data->tempatlahir;?></td>    
-                                  </tr>
-                                  <tr>
-                                      <td>Tanggal Lahir</td>
-                                      <td>:</td>
-                                      <td><?php echo $data->tanggal_lahir;?></td>  
-                                  </tr>
-                                  <tr>
-                                      <td>Fakultas</td>
-                                      <td>:</td>
-                                      <td><?php 
-                                        $id_jurusan=$data->id_jurusan;
-                                        $result=mysql_query("select * from jurusan where id_jurusan='$id_jurusan'");
-                                        while($jrs = mysql_fetch_object($result))
-                                        {
-                                            $jurusan=$jrs->namajurusan;
-                                            $id_fakultas=$jrs->id_fakultas;    
-                                        }
-                                        $result=mysql_query("select * from fakultas where id_fakultas='$id_fakultas'");
-                                        while($fkt = mysql_fetch_object($result))
-                                        {
-                                            echo $fakultas=$fkt->namafakultas;
-                                        }
-                                        $status=$data->status;
-                                      ?></td>
-                                  </tr>
-                                  <tr>
-                                      <td>Jurusan</td>
-                                      <td>:</td>
-                                      <td><?php echo $jurusan; ?></td>
-                                  </tr>
-                                  <tr>
-                                      <td>Alamat Sekarang</td>
-                                      <td>:</td>
-                                      <td><?php echo $data->alamat;?></td>  
-                                  </tr>
-                                  <tr>
-                                      <td>Angkatan Pelatihan Kewirausahaan</td>
-                                      <td>:</td>
-                                      <td><?php echo $data->akt_pelatihan;?></td>
-                                  </tr>
-                                  <tr>
-                                      <td>Waktu Pelatihan Kewirausahaan</td>
-                                      <td>:</td>
-                                      <td><?php echo $data->wkt_pelatihan;} ?></td>   
+                                      <td>'.$data->nim.'</td>   
                                   </tr>
                                 </table>
-                    </div><!--/.blog-item-->
-                    <div class="blog-item">
-                        <img class="img-responsive img-blog" src="images/blog/blog1.jpg" width="100%" alt="" />
-                        <div class="blog-content">
-                            <a href="blog-item.html"><h3>Jhon Mayer</h3></a>
-                            <div class="entry-meta">                                
-                               
-                                <span><i class="icon-calendar"></i> Mei 18th, 2013</span>
-                                <span><i class="icon-comment"></i> <a href="blog-item.html#comments">0 Comment</a></span>
+                              </aside>
                             </div>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                              <a class="btn btn-default" href="lulus2.html">Read More <i class="icon-angle-right"></i></a>
-                        </div>
-                    </div><!--/.blog-item-->
-                    <ul class="pagination pagination-lg">
-                        <li><a href="#"><i class="icon-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><i class="icon-angle-right"></i></a></li>
-                    </ul><!--/.pagination-->
-                </div>
-            </div><!--/.col-md-8-->
-        </div><!--/.row-->
+                        </div><!--/.blog-item-->
+                    </div>
+                </div><!--/.col-md-8-->
+            </div><!--/.row-->';
+                      }
+                      ?>
     </section><!--/#blog-->
 
 

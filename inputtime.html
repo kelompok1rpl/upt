@@ -21,6 +21,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $.getJSON("server/auth.php",function (data) {
+            console.log(data);
+            if(data==false)
+            {
+                window.location="login.html"
+            }
+        })
+    </script>
 </head><!--/head-->
 <body>
        <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
@@ -52,7 +62,7 @@
                         </ul>
                     </li>
 					<li><a href="seleksi.html">Seleksi PMW</a></li>
-                    <li><a href="index.html">Log Out</a></li>
+                    <li><a href="index.html" id="log">Log Out</a></li>
                     
                 </ul>
             </div>
@@ -102,11 +112,6 @@
                                             </div>
                                         </td>
                                     </tr>     
-									<tr>
-										<td>Keterangan</td>
-										<td>:</td>
-										<td><textarea cols="120" rows="10" name="isi"></textarea></td>	
-									</tr>
 								</table>
 								<br />
 								<div class="center">
@@ -161,6 +166,9 @@
             var pemateri=$('#pemateri').val();
             $.getJSON("server/inputtime.php",{jadwal:jadwal,judul:judul,pemateri:pemateri});
         });
+        $('#log').click(function(){
+            $.getJSON("server/unsetauth.php");
+        })
     </script>
 </body>
 </html>

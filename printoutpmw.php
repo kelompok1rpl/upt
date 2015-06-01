@@ -46,7 +46,6 @@
             <td>Jurusan</td>
             <td>Fakultas</td>
         </tr>
-        <tr>
             <?php 
                 mysql_connect("localhost","root","");
                 mysql_select_db("upt");
@@ -54,7 +53,7 @@
                 $query=mysql_query("select * from  pengajuan_pmw where status=2"); 
                 while($sum=mysql_fetch_object($query))
                 {
-                    echo   '<td>'.$no.'</td>
+                    echo   '<tr><td>'.$no.'</td>
                             <td>'.$sum->nama.'</td>
                             <td>'.$sum->nim.'</td>
                             <td>'.$sum->judulpmw.'</td>';
@@ -65,11 +64,10 @@
                             $id_fakultas=$jrs->id_fakultas;    
                             $result=mysql_query("select * from fakultas where id_fakultas='$id_fakultas'");
                             $fkt = mysql_fetch_object($result);
-                    echo    '<td>'.$fakultas=$fkt->namafakultas.'</td>';
+                    echo    '<td>'.$fakultas=$fkt->namafakultas.'</td></tr>';
                     $no++;
                 }
             ?>
-        </tr>
     </table>
     
     <script src="js/jquery.js"></script>
