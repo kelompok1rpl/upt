@@ -1,13 +1,53 @@
 <?php 
+auth();
+ if(auth()==false){
+    header('location:login.php');
+ }
+
+ function auth(){
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    if(isset($_SESSION['username'])){
+        return true;
+    }else{
+        return false;
+    }
+ }
+
 $id_seminar=$_GET['id_seminar'];
 if(!isset($id_seminar))
     {
         header("Location:printsem.html");
     }
 else{
-    mysql_connect("localhost","root","");
-    mysql_select_db("upt");
+    include 'connection.php';   
     $result=mysql_query("select * from seminar where id_seminar=$id_seminar");
+}
+
+function tampilkantabel($jumlah,$id_seminar){
+    if($jumlah>0)
+    {
+        $res=mysql_query("select * from peserta_seminar where id_seminar=$id_seminar");
+        $no=1;
+            echo "<table border='1' style='width:100%'>
+                    <tr>
+                        <th style='width:30px'>No</th>
+                        <th>Nama</th>
+                        <th>Instansi</th>
+                    </tr>";
+        while ($data=mysql_fetch_object($res)) {
+            echo   "<tr>
+                        <td style='width:30px'>".$no."</td>
+                        <td> ".$data->nama."</td>
+                        <td> ".$data->instansi."</td>
+                    </tr>";    
+            $no++;
+        }
+        echo "</table>";
+    }else{
+        echo "<div class='center'>Belum ada data peserta</div>";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -78,6 +118,7 @@ while ($data=mysql_fetch_object($result)) {
         $tanggal=$datetime->format('d');
         $tahun=$datetime->format('Y');
         $data->hari=$hari;
+        $id_seminar=$data->id_seminar;
 ?>
 <body class="margin">  
     <h3 class="center padding">Daftar Peserta Seminar</h3>
@@ -104,28 +145,7 @@ while ($data=mysql_fetch_object($result)) {
         </tr>
     </table>
         <?php
-        if($sum->jumlah>0)
-        {
-            $res=mysql_query("select * from peserta_seminar where id_seminar=$id_seminar");
-            $no=1;
-                echo "<table border='1' style='width:100%'>
-                        <tr>
-                            <th style='width:30px'>No</th>
-                            <th>Nama</th>
-                            <th>Instansi</th>
-                        </tr>";
-            while ($data=mysql_fetch_object($res)) {
-                echo   "<tr>
-                            <td style='width:30px'>".$no."</td>
-                            <td> ".$data->nama."</td>
-                            <td> ".$data->instansi."</td>
-                        </tr>";    
-                $no++;
-            }
-            echo "</table>";
-        }else{
-            echo "<div class='center'>Belum ada data peserta</div>";
-        }
+        tampilkantabel($sum->jumlah,$id_seminar);
         ?>
     </table>
     

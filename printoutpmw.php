@@ -1,3 +1,42 @@
+<?php 
+     auth();
+     if(auth()==false){
+        header('location:login.php');
+     }
+
+     function auth(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(isset($_SESSION['username'])){
+            return true;
+        }else{
+            return false;
+        }
+     }
+     
+    require_once 'connection.php';
+    function tampilkandaftar(){
+        $no=1;
+        $query=mysql_query("select * from  pengajuan_pmw where status=2"); 
+        while($sum=mysql_fetch_object($query))
+        {
+            echo   '<tr><td>'.$no.'</td>
+                    <td>'.$sum->nama.'</td>
+                    <td>'.$sum->nim.'</td>
+                    <td>'.$sum->judulpmw.'</td>';
+                    $id_jurusan=$sum->id_jurusan;
+                    $result=mysql_query("select * from jurusan where id_jurusan='$id_jurusan'");
+                    $jrs = mysql_fetch_object($result);
+            echo    '<td>'.$jurusan=$jrs->namajurusan.'</td>';
+                    $id_fakultas=$jrs->id_fakultas;    
+                    $result=mysql_query("select * from fakultas where id_fakultas='$id_fakultas'");
+                    $fkt = mysql_fetch_object($result);
+            echo    '<td>'.$fakultas=$fkt->namafakultas.'</td></tr>';
+            $no++;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,26 +86,7 @@
             <td>Fakultas</td>
         </tr>
             <?php 
-                mysql_connect("localhost","root","");
-                mysql_select_db("upt");
-                $no=1;
-                $query=mysql_query("select * from  pengajuan_pmw where status=2"); 
-                while($sum=mysql_fetch_object($query))
-                {
-                    echo   '<tr><td>'.$no.'</td>
-                            <td>'.$sum->nama.'</td>
-                            <td>'.$sum->nim.'</td>
-                            <td>'.$sum->judulpmw.'</td>';
-                            $id_jurusan=$sum->id_jurusan;
-                            $result=mysql_query("select * from jurusan where id_jurusan='$id_jurusan'");
-                            $jrs = mysql_fetch_object($result);
-                    echo    '<td>'.$jurusan=$jrs->namajurusan.'</td>';
-                            $id_fakultas=$jrs->id_fakultas;    
-                            $result=mysql_query("select * from fakultas where id_fakultas='$id_fakultas'");
-                            $fkt = mysql_fetch_object($result);
-                    echo    '<td>'.$fakultas=$fkt->namafakultas.'</td></tr>';
-                    $no++;
-                }
+                tampilkandaftar();
             ?>
     </table>
     

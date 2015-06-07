@@ -24,14 +24,29 @@
 </head><!--/head-->
 <body>
     <?php 
+     auth();
+     if(auth()==false){
+        header('location:login.php');
+     }
+
+     function auth(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(isset($_SESSION['username'])){
+            return true;
+        }else{
+            return false;
+        }
+     }
+
     $nim=$_GET['nim'];
     if(!isset($nim))
     {
-        header("Location:seleksi.html");
+        header("Location:seleksi.php");
     }
     else{
-        mysql_connect("localhost","root","");
-        mysql_select_db("upt");
+        include 'connection.php';
         $result=mysql_query("select * from pengajuan_pmw where nim='$nim'");
     }
     ?>
@@ -45,28 +60,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="logo"></a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="index2.html">Home</a></li>
+                    <li class="active"><a href="index2.php">Home</a></li>
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Input<i class="icon-angle-down"></i></a>
                         <ul class="dropdown-menu">                            
-                            <li><a href="inputresume.html">Resume Seminar</a></li>                           
-                            <li><a href="inputtime.html">Time Schedule</a></li>                            
+                            <li><a href="inputresume.php">Resume Seminar</a></li>                           
+                            <li><a href="inputtime.php">Time Schedule</a></li>                            
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cetak<i class="icon-angle-down"></i></a>
                         <ul class="dropdown-menu">                            
-                            <li><a href="printpmw.html">Nama Peserta PMW</a></li>                           
-                            <li><a href="printsem.html">Nama Peserta Seminar</a></li>                            
+                            <li><a href="printpmw.php">Nama Peserta PMW</a></li>                           
+                            <li><a href="printsem.php">Nama Peserta Seminar</a></li>                            
                         </ul>
                     </li>
-					<li><a href="seleksi.html">Seleksi PMW</a></li>
-                    <li><a href="index.html">Log Out</a></li>
-                    
+					<li><a href="seleksi.php">Seleksi PMW</a></li>
+                    <li><a href="logout.php" id="log">Log Out</a></li>
                 </ul>
             </div>
         </div>
@@ -197,7 +211,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Faq</a></li>
                         <li><a href="#">Contact Us</a></li>

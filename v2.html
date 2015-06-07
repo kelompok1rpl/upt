@@ -147,10 +147,10 @@
                         <td>Keterangan</td>
                     </tr>
                     <tr class="kolom">
-                        <td><input type="text" class="form-control" id="kegiatan"></td>
-                        <td><input type="text" class="form-control" id="tempat"></td>
-                        <td><input type="date" class="form-control" id="waktu"></td>
-                        <td><input type="text" class="form-control" id="keterangan"></td>
+                        <td><input type="text" class="form-control" name="kegiatan" id="kegiatan"></td>
+                        <td><input type="text" class="form-control" name="tempat" id="tempat"></td>
+                        <td><input type="date" class="form-control" name="waktu" id="waktu"></td>
+                        <td><input type="text" class="form-control" name="keterangan" id="keterangan"></td>
                     </tr>
                 </table>
                 <button class="btn btn-primary" id="tambah">Tambah</button>
@@ -291,6 +291,20 @@ $(document).ready(function() {
                     }
                 }
             },
+            kegiatan: {
+                validators: {
+                    notEmpty: {
+                        message: 'kegiatan harus diisi'
+                    }
+                }
+            },
+            keterangan: {
+                validators: {
+                    notEmpty: {
+                        message: 'kegiatan harus diisi'
+                    }
+                }
+            },
         }
     });
   
@@ -347,7 +361,6 @@ $(document).ready(function() {
       event.preventDefault();
       $('#pengalaman tr:last').clone(true).insertAfter('#pengalaman tr:last');
       $('#pengalaman tr:last *').val('');
-      $('#pengalaman tr:last #no').val(no);
       return false;
    })
 });

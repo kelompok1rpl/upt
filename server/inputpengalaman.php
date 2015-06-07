@@ -5,11 +5,11 @@
 	// $waktu="2000/1/1";
 	// $keterangan="Menang";
 
-	$nim=$_GET['nim'];
-	$kegiatan=$_GET['kegiatan'];
-	$tempat=$_GET['tempat'];
-	$waktu=$_GET['waktu'];
-	$keterangan=$_GET['keterangan'];
+	$nim=$_POST['nim'];
+	$kegiatan=$_POST['kegiatan'];
+	$tempat=$_POST['tempat'];
+	$waktu=$_POST['waktu'];
+	$keterangan=$_POST['keterangan'];
 
 	mysql_connect("localhost","root","");
 	mysql_select_db("upt");

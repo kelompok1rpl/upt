@@ -1,10 +1,10 @@
-<?php
- auth();
- if(auth()==false){
+<?php 
+auth();
+if(auth()==false){
     header('location:login.php');
- }
+}
 
- function auth(){
+function auth(){
     if(!isset($_SESSION)){
         session_start();
     }
@@ -13,8 +13,18 @@
     }else{
         return false;
     }
- }
+}
+function tampilkanseminar(){
+    include_once "connection.php";
+    $result=mysql_query("select * from seminar");
+    $list = null;
+    while($data = mysql_fetch_object($result)){
+        echo "<option value=".$data->id_seminar.">".$data->judulseminar."</option>";
+    }
+    return true;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Print</title>
+    <title>Input-Time Schedule</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -37,7 +47,17 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $.getJSON("server/auth.php",function (data) {
+            console.log(data);
+            if(data==false)
+            {
+                window.location="login.php"
+            }
+        })
+    </script>
+</head>
 <body>
        <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
         <div class="container">
@@ -64,11 +84,12 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cetak<i class="icon-angle-down"></i></a>
                         <ul class="dropdown-menu">                            
                             <li><a href="printpmw.php">Nama Peserta PMW</a></li>                           
-                            <li><a href="printsem.php">Nama Peserta Seminar</a></li>                            
+                            <li class="active"><a href="printsem.php">Nama Peserta Seminar</a></li>                            
                         </ul>
                     </li>
 					<li><a href="seleksi.php">Seleksi PMW</a></li>
                     <li><a href="logout.php" id="log">Log Out</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -78,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>Peserta Program Mahasiswa Wirausaha</h1>
+                    <h1>Peserta Kuliah Umum Kewirausahaan</h1>
                     
                 </div>
              
@@ -87,24 +108,22 @@
     </section><!--/#title-->    
 
     <section id="terms" class="container">
-        <form action="printoutpmw.php">
-		 <h3>Daftar Nama Peserta yang Lulus Program Mahasiswa Wirausaha</h3>
-            <?php 
-                require_once "connection.php";
-                $result=mysql_query("select * from pengajuan_pmw where status='2'");
-                $no=1;
-                while($data = mysql_fetch_object($result)){
-                    echo "<h4>".$no.". ".$data->nama."</h4></a>";
-                    $no++;
-                }
-            ?>
-         <input type="submit" class="btn btn-danger" value="Print">
+        <form class="center" role="form" id="login" action="printoutsem.php" method="get">
+            <fieldset class="registration-form">
+                <div class="top-margin form-group">
+                    <label>Seminar <span class="text-danger"></span></label><br>
+                    <select id="id_seminar" name="id_seminar"><?php tampilkanseminar(); ?></select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" id="btn">Cetak</button>
+                </div>
+            </fieldset>
         </form>
-	</section>
+    </section>
 	   
                 
 
-  <footer id="footer" class="midnight-blue">
+  <footer id="footer" class="midnight-blue" style="position:fixed;bottom:0px;width:100%">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -127,5 +146,18 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+        // $(document).ready(function(){
+        //     $.getJSON("server/listseminar.php",function(data){
+        //         $.each(data,tampilkan);
+        //     })
+        //     $('#log').click(function(){
+        //         $.getJSON("server/unsetauth.php");
+        //     })
+        // })
+        // function tampilkan(index,data){
+        //     $("#id_seminar").append("<option value="+data.id_seminar+">"+data.judulseminar+"</option>");
+        // }
+    </script>
 </body>
 </html>

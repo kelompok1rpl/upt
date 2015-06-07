@@ -1,16 +1,15 @@
 <?php 	
-	$nama=$_GET['nama'];
-	$id_jurusan=$_GET['id_jurusan'];
-	$judulpmw=$_GET['judulpmw'];
-	$nim=$_GET['nim'];
-	$tempatlahir=$_GET['tempatlahir'];
-	$tanggal_lahir=$_GET['tanggal_lahir'];
-	$alamat=$_GET['alamat'];
-	$akt_pelatihan=$_GET['akt_pelatihan'];
-	$wkt_pelatihan=$_GET['wkt_pelatihan'];
+	$nama=$_POST['nama'];
+	$id_jurusan=$_POST['id_jurusan'];
+	$judulpmw=$_POST['judulpmw'];
+	$nim=$_POST['nim'];
+	$tempatlahir=$_POST['tempatlahir'];
+	$tanggal_lahir=$_POST['tanggal_lahir'];
+	$alamat=$_POST['alamat'];
+	$akt_pelatihan=$_POST['akt_pelatihan'];
+	$wkt_pelatihan=$_POST['wkt_pelatihan'];
 
-	mysql_connect("localhost","root","");
-	mysql_select_db("upt");
+	require_once '../connection.php';
 	$result=mysql_query("insert into pengajuan_PMW (admin_id,judulpmw,nim,nama,tempatlahir,tanggal_lahir,alamat,akt_pelatihan,wkt_pelatihan,id_jurusan) values (1,'$judulpmw','$nim','$nama','$tempatlahir','$tanggal_lahir','$alamat','$akt_pelatihan','$wkt_pelatihan','$id_jurusan')");
 	if($result)
 	{
